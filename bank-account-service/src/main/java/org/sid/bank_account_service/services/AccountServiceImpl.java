@@ -44,8 +44,8 @@ public class AccountServiceImpl implements AccountService{
         if (bankAccountRequestDTO.getCurrency() != null) {
             bankAccount.setCurrency(bankAccountRequestDTO.getCurrency());
         }
-        if (bankAccountRequestDTO.getAccountType() != null) {
-            bankAccount.setAccountType(bankAccountRequestDto.getAccountType());
+        if (bankAccountRequestDTO.getType() != null) {
+            bankAccount.setType(bankAccountRequestDTO.getType());
         }
 
         BankAccount savedBankAccount = bankAccountRepository.save(bankAccount);
