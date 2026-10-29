@@ -5,9 +5,11 @@ import graphql.GraphQLError;
 import graphql.language.SourceLocation;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.graphql.execution.DataFetcherExceptionResolverAdapter;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class CustomerDataFetcherExceptionResolver extends DataFetcherExceptionResolverAdapter {
     @Override
     protected GraphQLError resolveToSingleError(Throwable ex, DataFetchingEnvironment env) {
@@ -19,7 +21,7 @@ public class CustomerDataFetcherExceptionResolver extends DataFetcherExceptionRe
 
             @Override
             public List<SourceLocation> getLocations() {
-                return List.of();
+                return null ;
             }
 
             @Override

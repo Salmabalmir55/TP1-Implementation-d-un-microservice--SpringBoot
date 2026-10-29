@@ -1,8 +1,10 @@
 package org.sid.bank_account_service.web;
 
+import org.sid.bank_account_service.dto.BankAccountRequestDTO;
 import org.sid.bank_account_service.dto.BankAccountResponseDTO;
 import org.sid.bank_account_service.entities.BankAccount;
 import org.sid.bank_account_service.repositories.BankAccountRepository;
+import org.sid.bank_account_service.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -15,7 +17,8 @@ import java.util.List;
 public class BankAccountGraphQlController {
     @Autowired
     private BankAccountRepository bankAccountRepository;
-
+    @Autowired
+    private AccountService accountService;
     @QueryMapping
     public List<BankAccount> accountsList() {
         return bankAccountRepository.findAll();
@@ -25,6 +28,24 @@ public class BankAccountGraphQlController {
         return bankAccountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Account not found"));
     }
-
-
+    @MutationMapping
+    public BankAccountResponseDTO addAccount(@Argument BankAccountRequestDTO bankAccount){
+        return accountService.addAccount(bankAccount);
+    }
+    @MutationMapping
+    public BankAccountResponseDTO updateAccount(@Argument String id,@Argument BankAccountRequestDTO bankAccount){
+        return accountService.updateAccount(id, bankAccount);
+    }
+    @MutationMapping
+    public Boolean deleteAccount(@Argument String id) {
+        bankAccountRepository.deleteById(id);
+        return true;
+    }
 }
+
+
+
+
+// record BankAccountDTO(Double balance, String currency, String type) {
+
+
